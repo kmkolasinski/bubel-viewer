@@ -68,6 +68,7 @@ GLWidget::GLWidget(QWidget *parent)
     bHideAtoms = false;
     selectedDataColumn = 0;
     selectedDataSpin = 0;
+    selectDataFlag = 0;
     bUseLines = false;
 
     selectedAtomA = -1;
@@ -317,12 +318,10 @@ void GLWidget::paintGL() {
         int no_subdivs = displayAllSettings.atom_quality;
         glMaterialfv(GL_FRONT, GL_DIFFUSE, d4);
 
-        //
         // draw active atoms
         if (data->dataname == "null" || !displayAllSettings.bShowDataValues) {
 
             for (unsigned int i = 0; i < atoms->size(); i++) {
-
 
                 Atom &atom = (*atoms)[i];
                 if (!atom.active) continue;
@@ -340,13 +339,15 @@ void GLWidget::paintGL() {
                     glMaterialfv(GL_FRONT, GL_DIFFUSE, df);
                 }
 
-
                 glTranslated(atom.pos.x(), atom.pos.y(), atom.pos.z());
                 gluSphere(quadric, radius, no_subdivs, no_subdivs);
                 glPopMatrix();
             }
 
         } else { // draw data values
+
+            if (selectedDataColumn < 0) return;
+
             double min_value = data->min_values[selectedDataColumn];
             double max_value = data->max_values[selectedDataColumn];
             if (atoms->size() == 0) {
@@ -362,8 +363,7 @@ void GLWidget::paintGL() {
                 if (data->spinIds[i] != selectedDataSpin) continue;
                 Atom &atom = (*atoms)[data->atomIds[i]];
 
-
-                if (flag2id[atom.flag] == selectDataFlag - 1) continue;
+                if (flag2id[atom.flag] == (selectDataFlag - 1)) continue;
 
                 if (bUseSettingsPerFlag) {
                     int id = flag2id[atom.flag];
@@ -442,10 +442,8 @@ void GLWidget::paintGL() {
             } else
                 renderCylinder(atomA.pos.x(), atomA.pos.y(), atomA.pos.z(), atomB.pos.x(), atomB.pos.y(), atomB.pos.z(),
                                0.2 * radius, no_subdivs, quadric);
-
         }
         if (bUseLines) {
-
             glEnd();
             glEnable(GL_LIGHTING);
         }
@@ -453,8 +451,6 @@ void GLWidget::paintGL() {
 
         glEndList();
         glNewList(displayIndexLeads, GL_COMPILE);
-
-
         glMaterialfv(GL_FRONT, GL_DIFFUSE, d4);
 
         radius = displayAllSettings.atom_size * DataReader::atoms_stats.scale * 0.3;
@@ -556,9 +552,7 @@ void GLWidget::paintGL() {
                                scale, 10, quadric);
 
             }
-
         }
-
 
         gluDeleteQuadric(quadric);
         bCompileDisplayList = false;
@@ -600,11 +594,8 @@ void GLWidget::paintGL() {
                 gluSphere(quadric, radius * 1.155, 25, 25);
                 glPopMatrix();
 
-
                 if (cntID == 0) break;
             } while (atomID == selectedAtomA);
-
-
         }
         if (selectedAtomB > -1) {
             glMaterialfv(GL_FRONT, GL_DIFFUSE, grn);

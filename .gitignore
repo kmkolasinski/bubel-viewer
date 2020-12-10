@@ -1,3 +1,4 @@
 build-viewer*
 *.o
 viewer.pro.user
+build/

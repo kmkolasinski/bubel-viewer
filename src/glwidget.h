@@ -152,7 +152,7 @@ public:
     bool bHideConnections;
     bool bHideAtoms;
     bool bUseLines;
-    unsigned int selectedDataColumn, selectedDataSpin, selectDataFlag;
+    int selectedDataColumn, selectedDataSpin, selectDataFlag;
 
 
     vector<DisplaySettings> displayPerFlag;

@@ -66,7 +66,7 @@ MainWindow::MainWindow(QWidget *parent) :
     bSkipSignals = false;
     bReopening = false;
 
-    update_gui();
+    updateGUI();
 
     glWidget->setAcceptDrops(true);
     setAcceptDrops(true);
@@ -84,7 +84,7 @@ QSize MainWindow::sizeHint() const
 }
 
 
-void MainWindow::update_gui() {
+void MainWindow::updateGUI() {
     QString info;
     AtomsStats &stats = xmlData.atoms_stats;
 
@@ -210,7 +210,7 @@ void MainWindow::receiveDoubleSpinBoxes(double) {
 }
 
 void MainWindow::receiveCheckBoxes(int toggle) {
-    toggle = 0;
+
     if (ui->radioButtonMainXY->isChecked()) glWidget->mainPlain = MAIN_PLAIN_XY;
     if (ui->radioButtonMainXZ->isChecked()) glWidget->mainPlain = MAIN_PLAIN_XZ;
     if (ui->radioButtonMainYZ->isChecked()) glWidget->mainPlain = MAIN_PLAIN_YZ;
@@ -252,6 +252,7 @@ void MainWindow::updateWidgets() {
     }
 
     // Data values
+    qDebug() << ui->listWidgetDatasetCols->currentRow() << "::" << ui->comboBoxDatasetSpinFilter->currentIndex() ;
     glWidget->selectedDataColumn = ui->listWidgetDatasetCols->currentRow();
     glWidget->selectedDataSpin = ui->comboBoxDatasetSpinFilter->currentIndex();
     glWidget->selectDataFlag = ui->comboBoxDataSetFlagFilter->currentIndex();
@@ -272,7 +273,7 @@ void MainWindow::open() {
         lastDir = fn;
         xmlData.read_data(fn);
         xmlData.precalculate_data();
-        update_gui();
+        updateGUI();
     }
 }
 
@@ -280,15 +281,14 @@ void MainWindow::close() {
     xmlData.clear_data();
     xmlData.loadingType = LOADING_STRUCTURE;
     xmlData.precalculate_data();
-
-    update_gui();
+    updateGUI();
 }
 
 void MainWindow::reopen() {
     xmlData.read_data(lastDir);
     xmlData.precalculate_data();
     bReopening = true;
-    update_gui();
+    updateGUI();
     bReopening = false;
 }
 
@@ -322,7 +322,7 @@ void MainWindow::dropEvent(QDropEvent *event) {
         }
     }
     xmlData.precalculate_data();
-    update_gui();
+    updateGUI();
 
 }
 
@@ -389,8 +389,6 @@ void MainWindow::updatePerFlagSettings(int row) {
 
 void MainWindow::selectedAtomsInfo(int atomA, int atomB) {
 
-//    qDebug() << atomA << atomB;
-
     if (atomA > -1) {
         ui->tableWidgetAtomInfo->setItem(0, 0, new QTableWidgetItem(QString::number(atomA + 1)));
         Atom &atom = xmlData.atoms[atomA];
@@ -454,7 +452,5 @@ void MainWindow::selectedAtomsInfo(int atomA, int atomB) {
             }
         } // end of for connections
     }// end of if coupling matrix
-
-
 
 }

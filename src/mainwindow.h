@@ -61,7 +61,7 @@ private:
     bool bSkipSignals;
     bool bReopening;
 
-    void update_gui();
+    void updateGUI();
 
     Ui::MainWindow *ui;
     GLWidget *glWidget;

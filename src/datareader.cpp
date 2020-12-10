@@ -248,7 +248,6 @@ void DataReader::read_connections(QDomElement &root) {
             connection.atomA--;
             connection.atomB--; // C++ notation
 
-
             connections.push_back(connection);
 
             atoms[connection.atomA].cnt_ptr = connections.size() - 1;
@@ -336,8 +335,8 @@ void DataReader::read_lead(QDomElement &root) {
                     stream >> x;
                     stream >> y;
                     stream >> z;
-
                     QVector3D base = QVector3D(x, y, z);
+
                     stream >> x;
                     stream >> y;
                     stream >> z;
@@ -448,19 +447,18 @@ void DataReader::read_lead(QDomElement &root) {
     // Additionall processing
     // -----------------------------------------
     QVector3D leadMC; // center of mass of lead
-    for (unsigned i = 0; i < lead.atoms.size(); i++) {
+    for (unsigned int i = 0; i < lead.atoms.size(); i++) {
         int ida = lead.atoms[i];
         leadMC += atoms[ida].pos;
     }
     leadMC /= lead.atoms.size();
     double max_dist_in_lead = 0;
 
-    for (unsigned i = 0; i < lead.atoms.size(); i++) {
+    for (unsigned int i = 0; i < lead.atoms.size(); i++) {
         int ida = lead.atoms[i];
         double dist = (atoms[ida].pos - leadMC).length();
         if (dist > max_dist_in_lead) max_dist_in_lead = dist;
     }
-//    qDebug() <<"Max dist:" << max_dist_in_lead;
 
     switch (lead.shape.type) {
         case (SHAPE_NONE):
@@ -524,7 +522,6 @@ void DataReader::read_lead(QDomElement &root) {
             lead.shape.data[5] += base + dir;
             lead.shape.data[6] += base + dir;
             lead.shape.data[7] += base + dir;
-
 
             qDebug() << "base+offset=" << base;
 
