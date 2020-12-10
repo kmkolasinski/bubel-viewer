@@ -142,19 +142,19 @@ void GLWidget::initializeGL() {
 void renderCylinder(double x1, double y1, double z1, double x2, double y2, double z2, double radius, int subdivisions,
                     GLUquadricObj *quadric, double radius2 = 0.0) {
 
-// This is the default direction for the cylinders to face in OpenGL
+    // This is the default direction for the cylinders to face in OpenGL
     QVector3D z = QVector3D(0, 0, 1);
-// Get diff between two points you want cylinder along
+    // Get diff between two points you want cylinder along
     QVector3D p;
     if (qAbs(x1 - x2) + qAbs(y1 - y2) < 1.0e-4) {
         p = (QVector3D(x1 + 0.0001, y1, z1) - QVector3D(x2, y2, z2));
     } else p = (QVector3D(x1, y1, z1) - QVector3D(x2, y2, z2));
 
 
-// Get CROSS product (the axis of rotation)
+    // Get CROSS product (the axis of rotation)
     QVector3D t = QVector3D::crossProduct(z, p);
 
-// Get angle. LENGTH is magnitude of the vector
+    // Get angle. LENGTH is magnitude of the vector
     double angle = 180.0 / M_PI * acos((QVector3D::dotProduct(z, p) / p.length()));
 
     glPushMatrix();
@@ -271,8 +271,8 @@ void GLWidget::paintGL() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-
     QMatrix4x4 rotmat = camera.updateCamera();
+
     glMultMatrixf(rotmat.data());
     glRotatef(180, 0, 1, 0);
 

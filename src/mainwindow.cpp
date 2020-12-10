@@ -155,7 +155,7 @@ void MainWindow::updateGUI() {
         } // display per flag
 
         info += QString("<br>");
-        info += QString("<b>Max spin value:</b> ") + QString::number(stats.max_spin);
+        info += QString("<b>Max orbital value:</b> ") + QString::number(stats.max_spin);
         info += QString("<br><b>Ave. dist:</b> ") + QString::number(stats.ave_dist);
         QString str;
         QDebug(&str) << QString("<br><b>Min. pos :</b> ") << stats.min_corner;
@@ -170,7 +170,7 @@ void MainWindow::updateGUI() {
     ui->lineEditDatasetName->setText(xmlData.data.dataname);
     ui->comboBoxDatasetSpinFilter->clear();
     for (int i = 0; i < stats.max_spin; i++) {
-        ui->comboBoxDatasetSpinFilter->addItem("Spin=" + QString::number(i + 1));
+        ui->comboBoxDatasetSpinFilter->addItem("Orbital=" + QString::number(i + 1));
     }
     ui->listWidgetDatasetCols->clear();
 
@@ -252,7 +252,6 @@ void MainWindow::updateWidgets() {
     }
 
     // Data values
-    qDebug() << ui->listWidgetDatasetCols->currentRow() << "::" << ui->comboBoxDatasetSpinFilter->currentIndex() ;
     glWidget->selectedDataColumn = ui->listWidgetDatasetCols->currentRow();
     glWidget->selectedDataSpin = ui->comboBoxDatasetSpinFilter->currentIndex();
     glWidget->selectDataFlag = ui->comboBoxDataSetFlagFilter->currentIndex();

@@ -164,7 +164,7 @@
          <enum>QTabWidget::West</enum>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>3</number>
         </property>
         <widget class="QWidget" name="tabWidgetPage1">
          <attribute name="title">
@@ -618,7 +618,7 @@ p, li { white-space: pre-wrap; }
             <item row="0" column="1">
              <widget class="QComboBox" name="comboBoxDatasetSpinFilter">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -627,6 +627,12 @@ p, li { white-space: pre-wrap; }
             </item>
             <item row="0" column="0">
              <widget class="QCheckBox" name="checkBoxDatasetUse">
+              <property name="maximumSize">
+               <size>
+                <width>120</width>
+                <height>16777215</height>
+               </size>
+              </property>
               <property name="text">
                <string>Enable</string>
               </property>
@@ -635,8 +641,28 @@ p, li { white-space: pre-wrap; }
               </property>
              </widget>
             </item>
+            <item row="0" column="3">
+             <widget class="QComboBox" name="comboBoxDataSetFlagFilter">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+             </widget>
+            </item>
             <item row="0" column="2">
-             <widget class="QComboBox" name="comboBoxDataSetFlagFilter"/>
+             <widget class="QLabel" name="label_2">
+              <property name="maximumSize">
+               <size>
+                <width>80</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Flag</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -663,6 +689,13 @@ p, li { white-space: pre-wrap; }
            <widget class="QListWidget" name="listWidgetDatasetCols">
             <property name="horizontalScrollBarPolicy">
              <enum>Qt::ScrollBarAlwaysOn</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Color scale adjustment</string>
             </property>
            </widget>
           </item>
@@ -742,7 +775,7 @@ p, li { white-space: pre-wrap; }
           <item>
            <widget class="QLabel" name="label_14">
             <property name="text">
-             <string>Selected atom info</string>
+             <string>Selected atom/site info</string>
             </property>
            </widget>
           </item>
@@ -755,7 +788,7 @@ p, li { white-space: pre-wrap; }
             </row>
             <row>
              <property name="text">
-              <string>No. spins</string>
+              <string>No. orbitals</string>
              </property>
             </row>
             <row>
