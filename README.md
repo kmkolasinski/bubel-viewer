@@ -1,5 +1,9 @@
-# bubel-viewer
+# Bubel-Viewer 2020-12-11
+
 A simple 3D visualization tool for tight binding models
+
+![image](img/header-image.png)
+
 
 # Requirements
 
