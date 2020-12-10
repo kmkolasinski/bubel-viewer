@@ -80,7 +80,7 @@ QSlider *Window::createSlider() {
     slider->setTickPosition(QSlider::TicksRight);
     return slider;
 }
-//! [2]
+
 
 void Window::keyPressEvent(QKeyEvent *e) {
     if (e->key() == Qt::Key_Escape)

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Bubel-Viewer (v16.7)</string>
+   <string>Bubel-Viewer (v2020.12.10)</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">

@@ -110,7 +110,7 @@ void GLWidget::setYPosition(double angle) {
 
 
 void GLWidget::initializeGL() {
-    qglClearColor(qtPurple.dark());
+    qglClearColor(qtPurple.darker());
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
@@ -122,8 +122,8 @@ void GLWidget::initializeGL() {
     for (int light = 0; light < no_lights; light++) {
         glEnable(GL_LIGHT0 + light);
         float rad = 15.0;
-        float x = ((light == 1) ? rad : 0.0 + (light == 2) ? -rad : 0.0);
-        float y = ((light == 3) ? rad : 0.0 + (light == 4) ? -rad : 0.0);
+        float x = ((light == 1) ? rad : (0.0 + (light == 2)) ? -rad : 0.0);
+        float y = ((light == 3) ? rad : (0.0 + (light == 4)) ? -rad : 0.0);
         GLfloat lightPosition[4] = {x, y, 10.0, 1.0};
         float ampd = 0.7 / (no_lights);
         GLfloat lightDiffuse[4] = {ampd, ampd, ampd, 1.0};
@@ -235,7 +235,7 @@ void processHits(GLint hits, GLuint buffer[]) {
         printf(" z2 is %g\n", (float) *ptr / 0x7fffffff);
         ptr++;
         printf("   the name is ");
-        for (int j = 0; j < names; j++) {     /*  for each name */
+        for (unsigned int j = 0; j < names; j++) {     /*  for each name */
             printf("%d ", *ptr);
             ptr++;
         }
@@ -291,12 +291,12 @@ void GLWidget::paintGL() {
     GLfloat d1[4] = {0.4, 0.5, 0.9, 1.0};
     GLfloat d2[4] = {0.9, 0.5, 0.6, 1.0};
     GLfloat d3[4] = {0.4, 0.9, 0.2, 1.0};
-    GLfloat d4[4] = {displayAllSettings.color.redF(),
-                     displayAllSettings.color.greenF(),
-                     displayAllSettings.color.blueF(), 1.0};
-    GLfloat d5[4] = {displayConnections.color.redF(),
-                     displayConnections.color.greenF(),
-                     displayConnections.color.blueF(), 1.0f};
+    GLfloat d4[4] = {(float)displayAllSettings.color.redF(),
+                     (float)displayAllSettings.color.greenF(),
+                     (float)displayAllSettings.color.blueF(), 1.0};
+    GLfloat d5[4] = {(float)displayConnections.color.redF(),
+                     (float)displayConnections.color.greenF(),
+                     (float)displayConnections.color.blueF(), 1.0f};
     GLfloat d6[4] = {0.8, 0.7, 3.0, 1.0};
     GLfloat d7[4] = {0.4, 0.4, 0.4, 1.0};
     GLfloat red[4] = {1.0, 0.0, 0.0, 1.0};
@@ -334,9 +334,9 @@ void GLWidget::paintGL() {
                     radius = displayPerFlag[id].atom_size * DataReader::atoms_stats.scale * 0.3;
                     no_subdivs = displayPerFlag[id].atom_quality;
 
-                    GLfloat df[4] = {displayPerFlag[id].color.redF(),
-                                     displayPerFlag[id].color.greenF(),
-                                     displayPerFlag[id].color.blueF(), 1.0};
+                    GLfloat df[4] = {(float)displayPerFlag[id].color.redF(),
+                                     (float)displayPerFlag[id].color.greenF(),
+                                     (float)displayPerFlag[id].color.blueF(), 1.0};
                     glMaterialfv(GL_FRONT, GL_DIFFUSE, df);
                 }
 
@@ -739,8 +739,8 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event) {
 
 
 void GLWidget::wheelEvent(QWheelEvent *event) {
-    float numDegrees = event->delta() / 100.0;
 
+    float numDegrees = event->angleDelta().y() / 100.0;
     zoom += numDegrees / 10.0 * zoom;
     zoom = min(max(0.001, zoom), 2.0);
     resizeGL(width(), height());

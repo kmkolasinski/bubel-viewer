@@ -138,7 +138,7 @@ void MainWindow::update_gui() {
             ui->comboBoxFlags->clear();
             ui->comboBoxDataSetFlagFilter->clear();
             ui->comboBoxDataSetFlagFilter->addItem("All");
-            for (unsigned int i = 0; i < stats.flag_list.size(); i++) {
+            for (int i = 0; i < stats.flag_list.size(); i++) {
                 info += QString::number(stats.flag_list[i]) + ", ";
                 glWidget->flag2id[stats.flag_list[i]] = i;
                 DisplaySettings ds;
@@ -152,26 +152,24 @@ void MainWindow::update_gui() {
                 ui->comboBoxFlags->addItem("Flag=" + QString::number(stats.flag_list[i]));
                 ui->comboBoxDataSetFlagFilter->addItem(QString::number(stats.flag_list[i]));
             }
-        }// display per flag
+        } // display per flag
+
         info += QString("<br>");
         info += QString("<b>Max spin value:</b> ") + QString::number(stats.max_spin);
-
         info += QString("<br><b>Ave. dist:</b> ") + QString::number(stats.ave_dist);
         QString str;
         QDebug(&str) << QString("<br><b>Min. pos :</b> ") << stats.min_corner;
         QDebug(&str) << QString("<br><b>Max. pos :</b> ") << stats.max_corner;
 
         info += str;
-
         ui->textEditInfo->setText(info);
-
 
     }// end of if loading data
 
     // Data values
     ui->lineEditDatasetName->setText(xmlData.data.dataname);
     ui->comboBoxDatasetSpinFilter->clear();
-    for (unsigned int i = 0; i < stats.max_spin; i++) {
+    for (int i = 0; i < stats.max_spin; i++) {
         ui->comboBoxDatasetSpinFilter->addItem("Spin=" + QString::number(i + 1));
     }
     ui->listWidgetDatasetCols->clear();
@@ -443,7 +441,7 @@ void MainWindow::selectedAtomsInfo(int atomA, int atomB) {
         QFont fnt;
         fnt.setPointSize(8);
         fnt.setFamily("Arial");
-        for (int i = 0; i < xmlData.connections.size(); i++) {
+        for (unsigned int i = 0; i < xmlData.connections.size(); i++) {
             if (xmlData.connections[i].atomA == atomA && xmlData.connections[i].atomB == atomB) {
                 atomAcnts.push_back(xmlData.connections[i]);
                 int s1 = xmlData.connections[i].spinA - 1;
